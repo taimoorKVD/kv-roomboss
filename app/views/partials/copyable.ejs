@@ -1,0 +1,20 @@
+<% const text = (typeof value !== 'undefined' && value !== null && value !== '') ? String(value) : ''; %>
+<% if (!text) { %>
+  <span class="text-slate-400">—</span>
+<% } else { %>
+  <span class="copyable-value inline-flex max-w-full items-center gap-1.5 align-middle">
+    <span class="copyable-text min-w-0 break-all font-mono text-[12px] leading-5 text-slate-800" title="<%= text %>"><%= text %></span>
+    <button
+      type="button"
+      class="copy-btn inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
+      data-copy="<%= text.replace(/"/g, '&quot;') %>"
+      title="Copy"
+      aria-label="Copy value"
+    >
+      <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 8h10a2 2 0 012 2v10a2 2 0 01-2 2H8a2 2 0 01-2-2V10a2 2 0 012-2z" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 16H5a2 2 0 01-2-2V5a2 2 0 012-2h9a2 2 0 012 2v1" />
+      </svg>
+    </button>
+  </span>
+<% } %>

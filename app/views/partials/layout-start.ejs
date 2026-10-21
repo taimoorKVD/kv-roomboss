@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= title %> · RoomBoss Enterprise</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=5" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=5" />
+  <link rel="shortcut icon" href="/favicon.ico?v=5" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=5" />
+  <meta name="theme-color" content="#1E73BE" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: "#eef6fc",
+              100: "#d9ebf8",
+              500: "#3b8fd0",
+              600: "#1E73BE",
+              700: "#185a96",
+              800: "#144876",
+              900: "#0f172a",
+            },
+          },
+          fontFamily: {
+            sans: ["IBM Plex Sans", "Segoe UI", "sans-serif"],
+            mono: ["IBM Plex Mono", "ui-monospace", "monospace"],
+          },
+          boxShadow: {
+            panel: "0 1px 2px rgba(15, 23, 42, 0.05), 0 4px 12px rgba(15, 23, 42, 0.04)",
+          },
+        },
+      },
+    };
+  </script>
+  <script>
+    try {
+      if (localStorage.getItem("rb.sidebarCollapsed") === "1") {
+        document.documentElement.classList.add("sidebar-collapsed");
+      }
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body class="h-full bg-slate-100 font-sans text-slate-900 antialiased">
+  <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+  <div id="jsonDrawerBackdrop" class="drawer-backdrop json-drawer-backdrop" aria-hidden="true"></div>
+
+  <div class="app-frame min-h-full">
+    <%- include('sidebar') %>
+    <div class="app-main flex min-h-screen min-w-0 flex-1 flex-col">
+      <header class="sticky top-0 z-20 border-b border-slate-200/80 bg-white/90 backdrop-blur-md">
+        <div class="flex h-14 items-center justify-between gap-3 px-3 sm:px-5 lg:px-6">
+          <div class="flex min-w-0 items-center gap-2.5">
+            <button
+              type="button"
+              id="sidebarToggle"
+              class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 shadow-sm hover:bg-slate-50"
+              aria-label="Toggle navigation"
+              aria-controls="sidebarNav"
+              aria-expanded="true"
+            >
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+              </svg>
+            </button>
+            <div class="flex min-w-0 items-center gap-2.5">
+              <img
+                src="/img/roomboss-logo.png"
+                alt="RoomBoss"
+                class="hidden h-7 w-auto max-w-[9.5rem] object-contain object-left sm:block"
+              />
+              <img
+                src="/img/roomboss-mark.png"
+                alt="RoomBoss"
+                class="h-8 w-8 object-contain sm:hidden"
+              />
+              <div class="min-w-0 border-l border-slate-200 pl-2.5 sm:pl-3">
+                <p class="truncate text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">Enterprise</p>
+                <p class="truncate text-sm font-semibold text-slate-900 sm:text-[15px]"><%= title %></p>
+              </div>
+            </div>
+          </div>
+          <div class="flex shrink-0 items-center gap-2">
+            <span class="hidden items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-600 ring-1 ring-inset ring-slate-200 sm:inline-flex" id="headerAccountChip">
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+              <span id="headerAccountName"><%= currentAccount.shortLabel || currentAccount.label %></span>
+            </span>
+          </div>
+        </div>
+      </header>
+      <main class="scrollbar-light flex-1 overflow-x-hidden px-3 py-4 sm:px-5 sm:py-5 lg:px-6">
+        <div class="mx-auto w-full max-w-7xl">

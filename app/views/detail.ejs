@@ -1,0 +1,192 @@
+<%- include('partials/layout-start') %>
+
+<div class="mb-4 sm:mb-5">
+  <a href="/modules/<%= module.id %>" class="inline-flex items-center gap-1.5 text-sm font-medium text-brand-600 hover:text-brand-700">
+    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+    Back to <%= module.name %>
+  </a>
+
+  <div class="mt-3 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+    <div class="min-w-0 <%= isDemo ? 'rounded-xl border border-amber-200 bg-amber-50/80 p-4 ring-1 ring-amber-100' : '' %>">
+      <div class="flex flex-wrap items-center gap-2">
+        <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-400"><%= module.recordLabel || 'Record' %> detail</p>
+        <% if (isDemo) { %>
+          <span class="inline-flex items-center rounded-full bg-amber-500 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">Demo</span>
+        <% } %>
+      </div>
+      <h1 class="mt-1 break-words text-xl font-semibold tracking-tight text-slate-900 sm:text-2xl"><%= record.title %></h1>
+      <div class="mt-2">
+        <%- include('partials/copyable', { value: record.id }) %>
+      </div>
+      <% if (showHotelActions && hotelActionRecord) { %>
+        <div class="mt-2.5 flex flex-wrap gap-1">
+          <% if (hotelActionRecord.vendorType) { %>
+            <span class="hotel-meta-badge hotel-meta-badge--type"><%= hotelActionRecord.vendorType %></span>
+          <% } %>
+          <% if (hotelActionRecord.currencyCode) { %>
+            <span class="hotel-meta-badge hotel-meta-badge--currency"><%= hotelActionRecord.currencyCode %></span>
+          <% } %>
+          <% if (hotelActionRecord.countryCode) { %>
+            <span class="hotel-meta-badge hotel-meta-badge--country"><%= String(hotelActionRecord.countryCode).toUpperCase() %></span>
+          <% } %>
+        </div>
+      <% } %>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <% if (account) { %>
+        <span class="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700 ring-1 ring-inset ring-slate-200"><%= account.label %></span>
+      <% } %>
+      <% if (fetchedAt) { %>
+        <span class="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700 ring-1 ring-inset ring-slate-200"><%= new Date(fetchedAt).toLocaleString() %></span>
+      <% } %>
+      <% if (showHotelActions) { %>
+        <div class="hotel-menu relative inline-flex">
+          <button type="button" class="hotel-menu-trigger" aria-haspopup="menu" aria-expanded="false" aria-label="Hotel actions" title="Actions">
+            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <circle cx="10" cy="4" r="1.5"/><circle cx="10" cy="10" r="1.5"/><circle cx="10" cy="16" r="1.5"/>
+            </svg>
+          </button>
+          <div class="hotel-menu-panel" role="menu">
+            <button type="button" role="menuitem" class="hotel-menu-item" data-hotel-action="list-available">Check availability</button>
+            <button type="button" role="menuitem" class="hotel-menu-item" data-hotel-action="list-rate-plans">Check rates</button>
+            <button type="button" role="menuitem" class="hotel-menu-item" data-hotel-action="create-booking">Create booking</button>
+          </div>
+        </div>
+      <% } %>
+      <button
+        type="button"
+        id="openDetailJsonBtn"
+        class="inline-flex h-9 items-center rounded-lg border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-700 shadow-sm hover:bg-slate-50"
+      >
+        Full JSON payload
+      </button>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="detailJsonData"><%- JSON.stringify(record.detail).replace(/</g, '\\u003c') %></script>
+<% if (showHotelActions && hotelActionRecord) { %>
+<script type="application/json" id="hotelActionRecordData"><%- JSON.stringify(hotelActionRecord).replace(/</g, '\\u003c') %></script>
+<% } %>
+
+<section class="mb-4 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-panel sm:mb-5 <%= isDemo ? 'ring-1 ring-amber-100' : '' %>">
+  <div class="flex items-center justify-between border-b border-slate-200 bg-slate-50/80 px-4 py-3 sm:px-5">
+    <div>
+      <h2 class="text-sm font-semibold text-slate-900">Overview</h2>
+      <p class="mt-0.5 text-xs text-slate-500"><%= scalarEntries.length %> field<%= scalarEntries.length === 1 ? '' : 's' %></p>
+    </div>
+  </div>
+  <% if (!scalarEntries.length) { %>
+    <p class="px-5 py-8 text-center text-sm text-slate-500">No scalar fields on this record.</p>
+  <% } else { %>
+    <dl class="prop-grid grid sm:grid-cols-2 lg:grid-cols-3">
+      <% scalarEntries.forEach(function (entry) { %>
+        <div class="border-b border-slate-100 px-4 py-3.5 sm:border-r sm:px-5">
+          <dt class="text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-400"><%= entry.key %></dt>
+          <dd class="mt-1.5 text-sm font-medium text-slate-900">
+            <% if (entry.key === 'status' || entry.key === 'active') { %>
+              <%- include('partials/status-badge', { value: entry.display }) %>
+            <% } else if (isCopyableKey(entry.key) && entry.display && entry.display !== '—') { %>
+              <%- include('partials/copyable', { value: entry.display }) %>
+            <% } else { %>
+              <span class="break-words <%= !entry.display || entry.display === '—' ? 'text-slate-400' : '' %>"><%= entry.display || '—' %></span>
+            <% } %>
+          </dd>
+        </div>
+      <% }) %>
+    </dl>
+  <% } %>
+</section>
+
+<% collectionEntries.forEach(function (entry) { %>
+  <section class="mb-4 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-panel sm:mb-5">
+    <div class="border-b border-slate-200 bg-slate-50/80 px-4 py-3 sm:px-5">
+      <h2 class="text-sm font-semibold capitalize text-slate-900"><%= entry.key %></h2>
+      <p class="mt-0.5 text-xs text-slate-500">
+        <%= entry.isArray ? (entry.value.length + ' item' + (entry.value.length === 1 ? '' : 's')) : 'Nested object' %>
+      </p>
+    </div>
+
+    <% if (entry.isArray) { %>
+      <% if (!entry.value.length) { %>
+        <p class="px-5 py-8 text-center text-sm text-slate-400">—</p>
+      <% } else if (entry.value.every(function (v) { return v == null || typeof v !== 'object'; })) { %>
+        <div class="flex flex-wrap gap-2 p-4 sm:p-5">
+          <% entry.value.forEach(function (v) { %>
+            <span class="inline-flex rounded-md bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700 ring-1 ring-inset ring-slate-200"><%= summarizeValue(v) %></span>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <% entry.value.forEach(function (row, idx) { %>
+          <div class="<%= idx ? 'border-t border-slate-100' : '' %>">
+            <p class="px-4 pt-3 text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:px-5">Item <%= idx + 1 %></p>
+            <%- include('partials/detail-props', { obj: row }) %>
+          </div>
+        <% }) %>
+      <% } %>
+    <% } else { %>
+      <%- include('partials/detail-props', { obj: entry.value }) %>
+    <% } %>
+  </section>
+<% }) %>
+
+<script>
+  document.getElementById("openDetailJsonBtn")?.addEventListener("click", function () {
+    const el = document.getElementById("detailJsonData");
+    let pretty = el ? el.textContent : "{}";
+    try { pretty = JSON.stringify(JSON.parse(pretty), null, 2); } catch (e) {}
+    window.openJsonDrawer("Full JSON payload", pretty);
+  });
+
+  (function () {
+    const recordEl = document.getElementById("hotelActionRecordData");
+    if (!recordEl) return;
+
+    let hotelRecord = {};
+    try {
+      hotelRecord = JSON.parse(recordEl.textContent || "{}");
+    } catch (e) {
+      hotelRecord = {};
+    }
+
+    function closeMenus() {
+      document.querySelectorAll(".hotel-menu.is-open").forEach(function (menu) {
+        menu.classList.remove("is-open");
+        menu.querySelector(".hotel-menu-trigger")?.setAttribute("aria-expanded", "false");
+      });
+    }
+
+    document.querySelectorAll(".hotel-menu-trigger").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const menu = btn.closest(".hotel-menu");
+        const willOpen = !menu.classList.contains("is-open");
+        closeMenus();
+        if (willOpen) {
+          menu.classList.add("is-open");
+          btn.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+
+    document.querySelectorAll("[data-hotel-action]").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeMenus();
+        const action = btn.getAttribute("data-hotel-action");
+        if (window.openHotelActionDrawer) {
+          window.openHotelActionDrawer(action, hotelRecord);
+        }
+      });
+    });
+
+    document.addEventListener("click", function (e) {
+      if (e.target.closest(".hotel-menu")) return;
+      closeMenus();
+    });
+  })();
+</script>
+
+<%- include('partials/layout-end') %>

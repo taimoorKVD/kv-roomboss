@@ -1,0 +1,1133 @@
+{
+  "info": {
+    "_postman_id": "c8fe3d73-7aba-4ee0-9497-6b0c915596ed",
+    "name": "Roomboss APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "19002666"
+  },
+  "item": [
+    {
+      "name": "Booking",
+      "item": [
+        {
+          "name": "List hotels",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "e8etqLmspl",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "AGENT_ONE_API",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/list?countryCode=jp&locationCode=niseko",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "countryCode",
+                  "value": "jp"
+                },
+                {
+                  "key": "locationCode",
+                  "value": "niseko"
+                }
+              ]
+            },
+            "description": "This endpoint makes an HTTP GET request to retrieve a list of hotels from the RoomBoss API. The request does not include a request body as it is a GET request. The response body will contain a list of hotels with their details, such as hotel name, address, contact information, and other relevant data."
+          },
+          "response": []
+        },
+        {
+          "name": "List available stays by hotelID",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "e8etqLmspl",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "AGENT_ONE_API",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/listAvailable?hotelId=8a80818a8820776501882cbfb13c3aa3&checkIn=20260311&checkOut=20260314&numberGuests=1&rate=ota",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "listAvailable"
+              ],
+              "query": [
+                {
+                  "key": "hotelId",
+                  "value": "8a80818a8820776501882cbfb13c3aa3"
+                },
+                {
+                  "key": "checkIn",
+                  "value": "20260311"
+                },
+                {
+                  "key": "checkOut",
+                  "value": "20260314"
+                },
+                {
+                  "key": "numberGuests",
+                  "value": "1"
+                },
+                {
+                  "key": "rate",
+                  "value": "ota"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List rate plans",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "e8etqLmspl",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "AGENT_ONE_API",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/listRatePlanDescription?hotelId=8a80818a8820776501882cc00c2c3ab4",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "listRatePlanDescription"
+              ],
+              "query": [
+                {
+                  "key": "hotelId",
+                  "value": "8a80818a8820776501882cc00c2c3ab4"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create booking",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "e8etqLmspl",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "AGENT_ONE_API",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/createBooking?customId=JSE1529&hotelId=2c9890f06b0fbfc6016b1ff810e564cf&roomTypeId=2c9890f06b0fbfc6016b1ff810e664d0&checkIn=20260328&checkOut=20260402&numberGuests=3&numberAdults=2&numberChildren=1&numberInfants=1&priceRetailMax=0&guestGivenName=Peter&guestFamilyName=Parker&rate=ota&ratePlanId=419079&bookingExtent=",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "createBooking"
+              ],
+              "query": [
+                {
+                  "key": "customId",
+                  "value": "JSE1529"
+                },
+                {
+                  "key": "hotelId",
+                  "value": "2c9890f06b0fbfc6016b1ff810e564cf"
+                },
+                {
+                  "key": "roomTypeId",
+                  "value": "2c9890f06b0fbfc6016b1ff810e664d0"
+                },
+                {
+                  "key": "checkIn",
+                  "value": "20260328"
+                },
+                {
+                  "key": "checkOut",
+                  "value": "20260402"
+                },
+                {
+                  "key": "numberGuests",
+                  "value": "3"
+                },
+                {
+                  "key": "numberAdults",
+                  "value": "2"
+                },
+                {
+                  "key": "numberChildren",
+                  "value": "1"
+                },
+                {
+                  "key": "numberInfants",
+                  "value": "1"
+                },
+                {
+                  "key": "priceRetailMax",
+                  "value": "0",
+                  "description": "704000.0"
+                },
+                {
+                  "key": "guestGivenName",
+                  "value": "Peter"
+                },
+                {
+                  "key": "guestFamilyName",
+                  "value": "Parker"
+                },
+                {
+                  "key": "rate",
+                  "value": "ota"
+                },
+                {
+                  "key": "ratePlanId",
+                  "value": "419079"
+                },
+                {
+                  "key": "bookingExtent",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "description": "This endpoint makes an HTTP GET request to retrieve a list of hotels from the RoomBoss API. The request does not include a request body as it is a GET request. The response body will contain a list of hotels with their details, such as hotel name, address, contact information, and other relevant data."
+          },
+          "response": []
+        },
+        {
+          "name": "View booking",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "e8etqLmspl",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "AGENT_ONE_API",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/listBooking?bookingId=8a80818a9c24c5df019c289000f227bf",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "listBooking"
+              ],
+              "query": [
+                {
+                  "key": "bookingId",
+                  "value": "8a80818a9c24c5df019c289000f227bf"
+                }
+              ]
+            },
+            "description": "This endpoint makes an HTTP GET request to retrieve a list of hotels from the RoomBoss API. The request does not include a request body as it is a GET request. The response body will contain a list of hotels with their details, such as hotel name, address, contact information, and other relevant data."
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel booking",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "e8etqLmspl",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "AGENT_ONE_API",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/cancelBooking?bookingId=8a80818a9c9611ca019c99e7b9a46d9d",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "cancelBooking"
+              ],
+              "query": [
+                {
+                  "key": "bookingId",
+                  "value": "8a80818a9c9611ca019c99e7b9a46d9d"
+                }
+              ]
+            },
+            "description": "This endpoint makes an HTTP GET request to retrieve a list of hotels from the RoomBoss API. The request does not include a request body as it is a GET request. The response body will contain a list of hotels with their details, such as hotel name, address, contact information, and other relevant data."
+          },
+          "response": []
+        },
+        {
+          "name": "View all bookings",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "e8etqLmspl",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "AGENT_ONE_API",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/listBookings?date=20260215&bookingType=ALL",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "listBookings"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "20260215"
+                },
+                {
+                  "key": "bookingType",
+                  "value": "ALL"
+                }
+              ]
+            },
+            "description": "This endpoint makes an HTTP GET request to retrieve a list of hotels from the RoomBoss API. The request does not include a request body as it is a GET request. The response body will contain a list of hotels with their details, such as hotel name, address, contact information, and other relevant data."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Booking With ACC-JSE",
+      "item": [
+        {
+          "name": "List hotels",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "B1DcyHegA5TRRHjF",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "JSE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/list?countryCode=jp&locationCode=niseko",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "countryCode",
+                  "value": "jp"
+                },
+                {
+                  "key": "locationCode",
+                  "value": "niseko"
+                }
+              ]
+            },
+            "description": "This endpoint makes an HTTP GET request to retrieve a list of hotels from the RoomBoss API. The request does not include a request body as it is a GET request. The response body will contain a list of hotels with their details, such as hotel name, address, contact information, and other relevant data."
+          },
+          "response": []
+        },
+        {
+          "name": "List available stays by hotelID",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "B1DcyHegA5TRRHjF",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "JSE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/listAvailable?hotelId=f808ad96314c970701315903b99d02c2&checkIn=20260313&checkOut=20260318&numberGuests=1&rate=ota",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "listAvailable"
+              ],
+              "query": [
+                {
+                  "key": "hotelId",
+                  "value": "f808ad96314c970701315903b99d02c2"
+                },
+                {
+                  "key": "checkIn",
+                  "value": "20260313"
+                },
+                {
+                  "key": "checkOut",
+                  "value": "20260318"
+                },
+                {
+                  "key": "numberGuests",
+                  "value": "1"
+                },
+                {
+                  "key": "rate",
+                  "value": "ota"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List rate plans",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "B1DcyHegA5TRRHjF",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "JSE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/listRatePlanDescription?hotelId=8a80818a8820776501882cc00c2c3ab4",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "listRatePlanDescription"
+              ],
+              "query": [
+                {
+                  "key": "hotelId",
+                  "value": "8a80818a8820776501882cc00c2c3ab4"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create booking",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "B1DcyHegA5TRRHjF",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "JSE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/createBooking?customId=JSE150001&hotelId=2c98902a54da2b7a0154e1b22365212b&roomTypeId=2c98902a54da2b7a0154e1b22365212c&checkIn=20260227&checkOut=20260230&numberGuests=1&numberAdults=1&numberChildren=0&numberInfants=0&priceRetailMax=79200.0&guestGivenName=Peter&guestFamilyName=Parker&rate=ota&ratePlanId=460292",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "createBooking"
+              ],
+              "query": [
+                {
+                  "key": "customId",
+                  "value": "JSE150001"
+                },
+                {
+                  "key": "hotelId",
+                  "value": "2c98902a54da2b7a0154e1b22365212b"
+                },
+                {
+                  "key": "roomTypeId",
+                  "value": "2c98902a54da2b7a0154e1b22365212c"
+                },
+                {
+                  "key": "checkIn",
+                  "value": "20260227"
+                },
+                {
+                  "key": "checkOut",
+                  "value": "20260230"
+                },
+                {
+                  "key": "numberGuests",
+                  "value": "1"
+                },
+                {
+                  "key": "numberAdults",
+                  "value": "1"
+                },
+                {
+                  "key": "numberChildren",
+                  "value": "0"
+                },
+                {
+                  "key": "numberInfants",
+                  "value": "0"
+                },
+                {
+                  "key": "priceRetailMax",
+                  "value": "79200.0"
+                },
+                {
+                  "key": "guestGivenName",
+                  "value": "Peter"
+                },
+                {
+                  "key": "guestFamilyName",
+                  "value": "Parker"
+                },
+                {
+                  "key": "rate",
+                  "value": "ota"
+                },
+                {
+                  "key": "ratePlanId",
+                  "value": "460292"
+                }
+              ]
+            },
+            "description": "This endpoint makes an HTTP GET request to retrieve a list of hotels from the RoomBoss API. The request does not include a request body as it is a GET request. The response body will contain a list of hotels with their details, such as hotel name, address, contact information, and other relevant data."
+          },
+          "response": []
+        },
+        {
+          "name": "View booking",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "B1DcyHegA5TRRHjF",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "JSE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/listBooking?bookingId=8a80818a9c8bc50b019c8fb6a888786f",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "listBooking"
+              ],
+              "query": [
+                {
+                  "key": "bookingId",
+                  "value": "8a80818a9c8bc50b019c8fb6a888786f"
+                }
+              ]
+            },
+            "description": "This endpoint makes an HTTP GET request to retrieve a list of hotels from the RoomBoss API. The request does not include a request body as it is a GET request. The response body will contain a list of hotels with their details, such as hotel name, address, contact information, and other relevant data."
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel booking",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "B1DcyHegA5TRRHjF",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "JSE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/cancelBooking?bookingId=8a80818a9c8bc50b019c8fb6a888786f",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "cancelBooking"
+              ],
+              "query": [
+                {
+                  "key": "bookingId",
+                  "value": "8a80818a9c8bc50b019c8fb6a888786f"
+                }
+              ]
+            },
+            "description": "This endpoint makes an HTTP GET request to retrieve a list of hotels from the RoomBoss API. The request does not include a request body as it is a GET request. The response body will contain a list of hotels with their details, such as hotel name, address, contact information, and other relevant data."
+          },
+          "response": []
+        },
+        {
+          "name": "View all bookings",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "JSE",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "e8etqLmspl",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/listBookings?date=20260224&bookingType=ALL",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "listBookings"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "20260224"
+                },
+                {
+                  "key": "bookingType",
+                  "value": "ALL"
+                }
+              ]
+            },
+            "description": "This endpoint makes an HTTP GET request to retrieve a list of hotels from the RoomBoss API. The request does not include a request body as it is a GET request. The response body will contain a list of hotels with their details, such as hotel name, address, contact information, and other relevant data."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Other",
+      "item": [
+        {
+          "name": "Get all hotels",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "B1DcyHegA5TRRHjF",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "JSE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/list?countryCode=jp&locationCode=niseko",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "countryCode",
+                  "value": "jp"
+                },
+                {
+                  "key": "locationCode",
+                  "value": "niseko"
+                }
+              ]
+            },
+            "description": "This endpoint makes an HTTP GET request to retrieve a list of hotels from the RoomBoss API. The request does not include a request body as it is a GET request. The response body will contain a list of hotels with their details, such as hotel name, address, contact information, and other relevant data."
+          },
+          "response": []
+        },
+        {
+          "name": "Create booking",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "B1DcyHegA5TRRHjF",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "JSE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/createBooking?customId=RGB20260210131915493&rate=ota&hotelId=4028808b1add13aa011add141ff60001&roomTypeId=4028808b1add13aa011add142bae0002&ratePlanId=537728&checkIn=20260704&checkOut=20260713&numberGuests=7&numberAdults=7&numberChildren=0&numberInfants=0&priceRetailMax=486000&guestGivenName=Peter&guestFamilyName=Parker&guestEmail=peter@dailybugle.com",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "createBooking"
+              ],
+              "query": [
+                {
+                  "key": "customId",
+                  "value": "RGB20260210131915493"
+                },
+                {
+                  "key": "rate",
+                  "value": "ota"
+                },
+                {
+                  "key": "hotelId",
+                  "value": "4028808b1add13aa011add141ff60001"
+                },
+                {
+                  "key": "roomTypeId",
+                  "value": "4028808b1add13aa011add142bae0002"
+                },
+                {
+                  "key": "ratePlanId",
+                  "value": "537728"
+                },
+                {
+                  "key": "checkIn",
+                  "value": "20260704"
+                },
+                {
+                  "key": "checkOut",
+                  "value": "20260713"
+                },
+                {
+                  "key": "numberGuests",
+                  "value": "7"
+                },
+                {
+                  "key": "numberAdults",
+                  "value": "7"
+                },
+                {
+                  "key": "numberChildren",
+                  "value": "0"
+                },
+                {
+                  "key": "numberInfants",
+                  "value": "0"
+                },
+                {
+                  "key": "priceRetailMax",
+                  "value": "486000"
+                },
+                {
+                  "key": "guestGivenName",
+                  "value": "Peter"
+                },
+                {
+                  "key": "guestFamilyName",
+                  "value": "Parker"
+                },
+                {
+                  "key": "guestEmail",
+                  "value": "peter@dailybugle.com"
+                }
+              ]
+            },
+            "description": "This endpoint makes an HTTP GET request to retrieve a list of hotels from the RoomBoss API. The request does not include a request body as it is a GET request. The response body will contain a list of hotels with their details, such as hotel name, address, contact information, and other relevant data."
+          },
+          "response": []
+        },
+        {
+          "name": "Get available stays by hotelID",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "B1DcyHegA5TRRHjF",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "JSE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/listAvailable?hotelId=8a80818a8380ef080183880e8d4c48d9&checkIn=20260601&checkOut=20260620&rate=ota&numberGuests=1&locationCode=NISEKO_HIRAFU",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "listAvailable"
+              ],
+              "query": [
+                {
+                  "key": "hotelId",
+                  "value": "8a80818a8380ef080183880e8d4c48d9"
+                },
+                {
+                  "key": "checkIn",
+                  "value": "20260601"
+                },
+                {
+                  "key": "checkOut",
+                  "value": "20260620"
+                },
+                {
+                  "key": "rate",
+                  "value": "ota"
+                },
+                {
+                  "key": "numberGuests",
+                  "value": "1"
+                },
+                {
+                  "key": "locationCode",
+                  "value": "NISEKO_HIRAFU"
+                }
+              ]
+            },
+            "description": "This endpoint makes an HTTP GET request to retrieve a list of hotels from the RoomBoss API. The request does not include a request body as it is a GET request. The response body will contain a list of hotels with their details, such as hotel name, address, contact information, and other relevant data."
+          },
+          "response": []
+        },
+        {
+          "name": "Get List Rate Plan Description | Sandbox",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "e8etqLmspl",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "AGENT_ONE_API",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.roomboss.com/extws/hotel/v1/listRatePlanDescription?hotelId=f808ad963f54211d013f65b88d7b35a9&rate=ota",
+              "protocol": "https",
+              "host": [
+                "api",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "listRatePlanDescription"
+              ],
+              "query": [
+                {
+                  "key": "hotelId",
+                  "value": "f808ad963f54211d013f65b88d7b35a9"
+                },
+                {
+                  "key": "rate",
+                  "value": "ota"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get List of available Hotels",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "agentDemo",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "agentDemo1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.staging.roomboss.com/extws/hotel/v1/listAvailable?hotelId=ff8081811b103444011b10344c090002&checkIn=20251026&checkOut=20251030&numberGuests=1&rate=ota",
+              "protocol": "https",
+              "host": [
+                "api",
+                "staging",
+                "roomboss",
+                "com"
+              ],
+              "path": [
+                "extws",
+                "hotel",
+                "v1",
+                "listAvailable"
+              ],
+              "query": [
+                {
+                  "key": "hotelId",
+                  "value": "ff8081811b103444011b10344c090002"
+                },
+                {
+                  "key": "checkIn",
+                  "value": "20251026"
+                },
+                {
+                  "key": "checkOut",
+                  "value": "20251030"
+                },
+                {
+                  "key": "numberGuests",
+                  "value": "1"
+                },
+                {
+                  "key": "rate",
+                  "value": "ota"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

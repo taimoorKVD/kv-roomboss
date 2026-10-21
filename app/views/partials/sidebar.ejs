@@ -1,0 +1,73 @@
+<aside id="sidebarNav" class="sidebar-nav scrollbar-dark flex flex-col border-r border-slate-800 bg-slate-950 text-slate-200" aria-label="Primary">
+  <div class="flex h-14 shrink-0 items-center gap-2 border-b border-slate-800/80 px-2.5">
+    <a href="/modules/list-hotels" class="flex min-w-0 flex-1 items-center gap-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" title="RoomBoss">
+      <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-white p-1 shadow-sm">
+        <img src="/img/roomboss-mark.png" alt="" class="h-full w-full object-contain" />
+      </span>
+      <span class="sidebar-label min-w-0 flex-1 rounded-md bg-white px-2 py-1.5 shadow-sm">
+        <img src="/img/roomboss-logo.png" alt="RoomBoss" class="h-5 w-auto max-w-[8.5rem] object-contain object-left" />
+      </span>
+    </a>
+    <button type="button" id="sidebarClose" class="sidebar-label inline-flex h-8 w-8 items-center justify-center rounded-md text-slate-400 hover:bg-slate-800 hover:text-white lg:hidden" aria-label="Close navigation">
+      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <nav class="scrollbar-dark flex-1 overflow-y-auto overscroll-contain px-2 py-3">
+    <p class="sidebar-label mb-1.5 px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">Modules</p>
+    <ul class="space-y-0.5">
+      <% modules.forEach(function (m) { %>
+        <% const active = currentPath === '/modules/' + m.id || (currentPath || '').startsWith('/modules/' + m.id + '/'); %>
+        <li class="relative">
+          <a
+            href="/modules/<%= m.id %>"
+            class="sidebar-link group relative flex items-center gap-2.5 rounded-lg px-2 py-2 text-[13px] font-medium transition <%= active ? 'bg-brand-600 text-white' : (m.danger ? 'text-rose-300 hover:bg-slate-900' : 'text-slate-300 hover:bg-slate-900 hover:text-white') %>"
+          >
+            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-md <%= active ? 'bg-white/15' : 'bg-slate-900 text-slate-400 group-hover:text-slate-200' %>">
+              <%- include('icon', { icon: m.icon }) %>
+            </span>
+            <span class="sidebar-label truncate"><%= m.shortName %></span>
+            <span class="sidebar-flyout" aria-hidden="true"><%= m.shortName %></span>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+  </nav>
+
+  <div class="relative shrink-0 border-t border-slate-800/80 p-2">
+    <button
+      type="button"
+      id="accountSwitchBtn"
+      class="sidebar-link group relative flex w-full items-center gap-2.5 rounded-lg border border-slate-700/70 bg-slate-900/80 px-2 py-2 text-left transition hover:border-brand-500/50 hover:bg-slate-900"
+      aria-haspopup="menu"
+      aria-expanded="false"
+      aria-controls="accountSwitchMenu"
+    >
+      <span id="accountSwitchAvatar" class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-600 text-[11px] font-bold text-white">
+        <%= currentAccount.initials %>
+      </span>
+      <span class="sidebar-label min-w-0 flex-1">
+        <span class="block truncate text-[11px] font-medium uppercase tracking-wide text-slate-400">Switch account</span>
+        <span id="accountSwitchLabel" class="block truncate text-sm font-semibold text-white"><%= currentAccount.shortLabel || currentAccount.label %></span>
+      </span>
+      <svg class="sidebar-label h-4 w-4 shrink-0 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l4 4 4-4"/></svg>
+      <span class="sidebar-flyout" aria-hidden="true">Switch account</span>
+    </button>
+
+    <div
+      id="accountSwitchMenu"
+      class="absolute bottom-[calc(100%+0.5rem)] left-2 right-2 z-50 hidden w-[min(20rem,calc(100vw-1.5rem))] overflow-hidden rounded-xl border border-slate-700 bg-slate-900 shadow-2xl shadow-black/40"
+      role="menu"
+    >
+      <div class="flex items-center justify-between gap-2 border-b border-slate-800 px-3 py-2">
+        <p class="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">Switch account</p>
+        <button type="button" id="accountAddBtn" class="rounded-md bg-brand-600 px-2 py-1 text-[11px] font-semibold text-white hover:bg-brand-700">
+          Add
+        </button>
+      </div>
+      <ul id="accountMenuList" class="max-h-80 overflow-y-auto py-1"></ul>
+    </div>
+
+    <input type="hidden" id="accountSelect" value="<%= currentAccountId %>" />
+  </div>
+</aside>

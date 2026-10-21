@@ -1,0 +1,14 @@
+<%
+  const raw = (typeof value !== 'undefined' && value !== null) ? String(value).trim() : '';
+  const lower = raw.toLowerCase();
+  let kind = 'neutral';
+  if (lower === 'active' || lower === 'yes') kind = 'active';
+  else if (lower === 'inactive' || lower === 'no') kind = 'inactive';
+  else if (lower === 'cancelled' || lower === 'canceled') kind = 'cancelled';
+  else if (lower === 'failed' || lower === 'error') kind = 'failed';
+%>
+<% if (!raw || raw === '—') { %>
+  <span class="text-slate-400">—</span>
+<% } else { %>
+  <span class="status-badge status-badge--<%= kind %>"><%= raw %></span>
+<% } %>

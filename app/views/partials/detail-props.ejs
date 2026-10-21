@@ -1,0 +1,71 @@
+<%
+  const objectValue = typeof obj !== 'undefined' && obj ? obj : {};
+  const scalars = [];
+  const nestedObjects = [];
+  const nestedArrays = [];
+
+  Object.entries(objectValue).forEach(function (pair) {
+    const key = pair[0];
+    const value = pair[1];
+    if (Array.isArray(value)) {
+      nestedArrays.push({ key: key, value: value });
+    } else if (value !== null && typeof value === 'object') {
+      nestedObjects.push({ key: key, value: value });
+    } else {
+      scalars.push({ key: key, value: value, display: summarizeValue(value) });
+    }
+  });
+%>
+
+<% if (scalars.length) { %>
+  <dl class="prop-grid grid sm:grid-cols-2 lg:grid-cols-3">
+    <% scalars.forEach(function (entry) { %>
+      <div class="border-b border-slate-100 px-4 py-3.5 sm:border-r sm:px-5">
+        <dt class="text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-400"><%= entry.key %></dt>
+        <dd class="mt-1.5 text-sm font-medium text-slate-900">
+          <% if (entry.key === 'status' || entry.key === 'active') { %>
+            <%- include('status-badge', { value: entry.display }) %>
+          <% } else if (typeof isCopyableKey === 'function' && isCopyableKey(entry.key) && entry.display && entry.display !== '—') { %>
+            <%- include('copyable', { value: entry.display }) %>
+          <% } else { %>
+            <span class="break-words <%= entry.display === '—' ? 'text-slate-400' : '' %>"><%= entry.display %></span>
+          <% } %>
+        </dd>
+      </div>
+    <% }) %>
+  </dl>
+<% } %>
+
+<% nestedObjects.forEach(function (child) { %>
+  <div class="border-t border-slate-200">
+    <div class="border-b border-slate-100 bg-slate-50/70 px-4 py-2.5 sm:px-5">
+      <h3 class="text-xs font-semibold capitalize text-slate-700"><%= child.key %></h3>
+    </div>
+    <%- include('detail-props', { obj: child.value }) %>
+  </div>
+<% }) %>
+
+<% nestedArrays.forEach(function (child) { %>
+  <div class="border-t border-slate-200">
+    <div class="border-b border-slate-100 bg-slate-50/70 px-4 py-2.5 sm:px-5">
+      <h3 class="text-xs font-semibold capitalize text-slate-700"><%= child.key %></h3>
+      <p class="mt-0.5 text-[11px] text-slate-500"><%= child.value.length %> item<%= child.value.length === 1 ? '' : 's' %></p>
+    </div>
+    <% if (!child.value.length) { %>
+      <p class="px-4 py-4 text-sm text-slate-400 sm:px-5">—</p>
+    <% } else if (typeof child.value[0] === 'object' && child.value[0] !== null) { %>
+      <% child.value.forEach(function (row, idx) { %>
+        <div class="<%= idx ? 'border-t border-slate-100' : '' %>">
+          <p class="px-4 pt-3 text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:px-5">Item <%= idx + 1 %></p>
+          <%- include('detail-props', { obj: row }) %>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <div class="flex flex-wrap gap-2 p-4 sm:p-5">
+        <% child.value.forEach(function (v) { %>
+          <span class="inline-flex rounded-md bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700 ring-1 ring-inset ring-slate-200"><%= summarizeValue(v) %></span>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+<% }) %>
