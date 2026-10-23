@@ -210,6 +210,15 @@ router.post("/run/:moduleId", async (req, res) => {
   }
 });
 
+router.delete("/results/:moduleId", (req, res) => {
+  const module = getModule(req.params.moduleId);
+  if (!module) {
+    return res.status(404).json({ ok: false, error: "Unknown module" });
+  }
+  if (req.session.moduleResults) delete req.session.moduleResults[module.id];
+  return res.json({ ok: true });
+});
+
 router.get("/results/:moduleId", (req, res) => {
   const module = getModule(req.params.moduleId);
   if (!module) {

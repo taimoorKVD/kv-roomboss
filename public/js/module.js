@@ -240,10 +240,11 @@
     );
   }
 
-  function setRawPayload(data) {
+  function setRawPayload(data, hasRows) {
     lastRawPayload = data;
     if (openRawBtn) {
-      openRawBtn.classList.toggle("hidden", data == null);
+      // Only offer "View raw" when the query actually returned rows.
+      openRawBtn.classList.toggle("hidden", data == null || !hasRows);
     }
   }
 
@@ -566,7 +567,10 @@
         body: JSON.stringify(body),
       });
       const payload = await res.json();
-      setRawPayload(payload.data ?? payload);
+      setRawPayload(
+        payload.data ?? payload,
+        !!payload.ok && (payload.listing?.items || []).length > 0
+      );
 
       if (!payload.ok) {
         const apiError =
@@ -608,6 +612,35 @@
       runBtn.disabled = false;
       quietLoad = false;
     }
+  });
+
+  // Reset: native type="reset" only restores the inputs; the results panel
+  // (and the session-cached results) still reflected the previous filters.
+  form.addEventListener("reset", () => {
+    // Let the browser restore default values first.
+    setTimeout(async () => {
+      state.page = 1;
+      state.q = "";
+      if (searchInput) searchInput.value = "";
+      setRawPayload(null, false);
+
+      if (form.dataset.autoload === "1") {
+        // Autoload modules show default results on page load; do the same here.
+        quietLoad = true;
+        form.requestSubmit();
+        return;
+      }
+
+      resultsPanel.classList.add("hidden");
+      resultsContent.innerHTML = "";
+      resultsMeta.textContent = "Load a query to populate this table.";
+      setStatus("");
+      try {
+        await fetch("/api/results/" + moduleId, { method: "DELETE" });
+      } catch (e) {
+        /* ignore: UI already cleared */
+      }
+    }, 0);
   });
 
   if (searchInput) {

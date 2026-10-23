@@ -271,7 +271,9 @@
   function renderResults(payload) {
     resultsWrap.classList.remove("hidden");
     lastRaw = payload.data ?? payload;
-    rawBtn.classList.toggle("hidden", lastRaw == null);
+    // Only offer "View raw" when the query actually returned rows.
+    const hasRows = !!payload.ok && (payload.listing?.items || []).length > 0;
+    rawBtn.classList.toggle("hidden", lastRaw == null || !hasRows);
 
     if (!payload.ok) {
       resultsBody.innerHTML =
@@ -438,6 +440,11 @@
   resetBtn?.addEventListener("click", () => {
     if (!currentModule) return;
     renderForm(currentModule, initialValues);
+    // Clear results from the previous query so they don't contradict the reset form.
+    lastRaw = null;
+    rawBtn?.classList.add("hidden");
+    resultsBody.innerHTML = "";
+    resultsWrap.classList.add("hidden");
     setStatus("Form reset to hotel defaults");
   });
   submitBtn?.addEventListener("click", submitAction);
