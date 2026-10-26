@@ -53,6 +53,23 @@ function storeResults(req, module, payload) {
   if (!req.session.moduleResults) req.session.moduleResults = {};
   const data = enrichResponseForModule(payload.data, req.body, module);
   const { records, raw } = normalizeResponse(data, module);
+  const existing = req.session.moduleResults[module.id];
+
+  // Create Booking: keep every successful create in this session (newest first).
+  // List/query modules still replace the listing with the latest response.
+  let nextRecords = records;
+  let nextRaw = payload.data;
+  if (module.action === "create" && existing?.records?.length) {
+    const seen = new Set(records.map((r) => r.id));
+    const prior = existing.records.filter((r) => !seen.has(r.id));
+    nextRecords = records.concat(prior);
+    nextRaw = {
+      sessionCreates: true,
+      latest: payload.data,
+      previousCount: prior.length,
+    };
+  }
+
   req.session.moduleResults[module.id] = {
     moduleId: module.id,
     moduleName: module.name,
@@ -61,8 +78,8 @@ function storeResults(req, module, payload) {
     fetchedAt: new Date().toISOString(),
     columns: module.columns || [],
     recordLabel: module.recordLabel || "Record",
-    records,
-    raw: payload.data,
+    records: nextRecords,
+    raw: nextRaw,
   };
   return req.session.moduleResults[module.id];
 }

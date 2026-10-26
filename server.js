@@ -80,6 +80,16 @@ app.get("/modules/:id", (req, res) => {
       message: "That module does not exist.",
     });
   }
+  // Query/list modules: drop cached rows when the user returns to the page so
+  // empty/default filters never sit above a previous query's results.
+  // Create Booking keeps its session list so successive creates accumulate.
+  if (
+    module.action !== "create" &&
+    req.session.moduleResults &&
+    req.session.moduleResults[module.id]
+  ) {
+    delete req.session.moduleResults[module.id];
+  }
   const stored = req.session.moduleResults?.[module.id];
   res.render("module", {
     title: module.name,

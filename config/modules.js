@@ -208,7 +208,8 @@ const modules = [
         label: "Rate plan ID",
         type: "text",
         required: true,
-        default: "419079",
+        default: "",
+        help: "From availability / rate plan results",
       },
       {
         key: "checkIn",

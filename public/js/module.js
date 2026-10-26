@@ -303,10 +303,19 @@
     );
 
     if (!items.length) {
+      const total = Number(pagination.total || 0);
+      const emptyTitle = state.q || state.demo !== "all"
+        ? "No matching records"
+        : "No results";
+      const emptyHelp = state.q || state.demo !== "all"
+        ? "Try another search term or re-run the query."
+        : total === 0
+          ? "Nothing usable came back for this query."
+          : "Try another search term or re-run the query.";
       resultsContent.innerHTML =
         '<div class="flex flex-col items-center justify-center px-5 py-14 text-center">' +
-        '<p class="text-sm font-medium text-slate-700">No matching records</p>' +
-        '<p class="mt-1 text-sm text-slate-500">Try another search term or re-run the query.</p>' +
+        '<p class="text-sm font-medium text-slate-700">' + emptyTitle + "</p>" +
+        '<p class="mt-1 text-sm text-slate-500">' + emptyHelp + "</p>" +
         "</div>";
     } else {
       let html =
@@ -685,14 +694,13 @@
     const given = form.querySelector('[name="guestGivenName"]');
     const family = form.querySelector('[name="guestFamilyName"]');
     const email = form.querySelector('[name="guestEmail"]');
-    const ratePlan = form.querySelector('[name="ratePlanId"]');
     if (given && !given.value) given.value = "Peter";
     if (family && !family.value) family.value = "parker";
     if (email && !email.value) {
       email.value =
         "peter_parker_" + String(Math.floor(Math.random() * 1e9)) + "@gmail.com";
     }
-    if (ratePlan && !ratePlan.value) ratePlan.value = "419079";
+    // Rate plan ID stays empty — user must paste from availability / rate plans.
   }
 
   if (form.dataset.autoload === "1") {
