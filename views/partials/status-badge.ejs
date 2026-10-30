@@ -3,7 +3,7 @@
   const lower = raw.toLowerCase();
   let kind = 'neutral';
   if (lower === 'active' || lower === 'yes') kind = 'active';
-  else if (lower === 'inactive' || lower === 'no') kind = 'inactive';
+  else if (lower === 'inactive' || lower === 'cancelled / inactive' || lower === 'no') kind = 'inactive';
   else if (lower === 'cancelled' || lower === 'canceled') kind = 'cancelled';
   else if (lower === 'failed' || lower === 'error') kind = 'failed';
 %>

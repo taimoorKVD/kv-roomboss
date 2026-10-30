@@ -202,7 +202,7 @@
       .trim()
       .toLowerCase();
     if (raw === "active" || raw === "yes") return "status-badge--active";
-    if (raw === "inactive" || raw === "no") return "status-badge--inactive";
+    if (raw === "inactive" || raw === "cancelled / inactive" || raw === "no") return "status-badge--inactive";
     if (raw === "cancelled" || raw === "canceled") return "status-badge--cancelled";
     if (raw === "failed" || raw === "error") return "status-badge--failed";
     return "status-badge--neutral";

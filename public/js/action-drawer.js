@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const drawer = document.getElementById("actionDrawer");
   const backdrop = document.getElementById("actionDrawerBackdrop");
   const closeBtn = document.getElementById("actionDrawerClose");
@@ -93,7 +93,10 @@
       priceRetailMax: "0",
       checkIn: dates.checkIn,
       checkOut: dates.checkOut,
-      customId: "JSE" + Date.now().toString().slice(-8),
+      customId:
+        "JSE" +
+        Date.now().toString(36).toUpperCase() +
+        Math.random().toString(36).slice(2, 6).toUpperCase(),
       guestGivenName: "Peter",
       guestFamilyName: "parker",
       guestEmail:
@@ -239,7 +242,7 @@
     if (loading) {
       if (!submitBtn.dataset.idle) submitBtn.dataset.idle = submitBtn.innerHTML;
       submitBtn.disabled = true;
-      submitBtn.innerHTML = SPINNER + "<span>Running…</span>";
+      submitBtn.innerHTML = SPINNER + "<span>Runningâ€¦</span>";
     } else {
       submitBtn.disabled = false;
       submitBtn.innerHTML = submitBtn.dataset.idle || "Run";
@@ -314,14 +317,14 @@
           const raw = String(val || "").trim().toLowerCase();
           let kind = "neutral";
           if (raw === "active" || raw === "yes") kind = "active";
-          else if (raw === "inactive" || raw === "no") kind = "inactive";
+          else if (raw === "inactive" || raw === "cancelled / inactive" || raw === "no") kind = "inactive";
           else if (raw === "cancelled" || raw === "canceled") kind = "cancelled";
           else if (raw === "failed" || raw === "error") kind = "failed";
           cell =
             '<span class="status-badge status-badge--' +
             kind +
             '">' +
-            escapeHtml(String(val || "—")) +
+            escapeHtml(String(val || "â€”")) +
             "</span>";
         }
         html +=
@@ -400,9 +403,29 @@
       (window.getSelectedAccountId && window.getSelectedAccountId()) ||
       "agent_one";
     body.pageSize = 25;
+    if (typeof body.customId === "string") {
+      body.customId = body.customId.trim();
+      const refsKey = "rbUsedRefs";
+      let usedRefs = [];
+      try {
+        usedRefs = JSON.parse(sessionStorage.getItem(refsKey) || "[]");
+      } catch (e) {}
+      if (body.customId && usedRefs.indexOf(body.customId) !== -1) {
+        showToast(
+          "Note: reference " + body.customId + " was already used in this session.",
+          "info"
+        );
+      }
+      if (body.customId && currentModule.action === "create") {
+        usedRefs.push(body.customId);
+        try {
+          sessionStorage.setItem(refsKey, JSON.stringify(usedRefs.slice(-200)));
+        } catch (e) {}
+      }
+    }
 
     setSubmitLoading(true);
-    setStatus("Calling RoomBoss…");
+    setStatus("Calling RoomBossâ€¦");
     resultsWrap.classList.add("hidden");
 
     try {
@@ -420,7 +443,7 @@
         return;
       }
       const total = payload.listing?.pagination?.total || 0;
-      setStatus("Done — " + total + " record(s)", "ok");
+      setStatus("Done â€” " + total + " record(s)", "ok");
       showToast(
         currentModule.action === "create"
           ? "Booking request completed"
@@ -451,7 +474,7 @@
   rawBtn?.addEventListener("click", () => {
     if (lastRaw == null) return;
     window.openJsonDrawer(
-      currentModule?.name + " · raw response",
+      currentModule?.name + " Â· raw response",
       typeof lastRaw === "string" ? lastRaw : JSON.stringify(lastRaw, null, 2)
     );
   });
