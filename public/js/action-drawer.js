@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   const drawer = document.getElementById("actionDrawer");
   const backdrop = document.getElementById("actionDrawerBackdrop");
   const closeBtn = document.getElementById("actionDrawerClose");
